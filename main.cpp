@@ -9,26 +9,30 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstring>
+#include <algorithm>
+#include <cctype>
 using namespace std;
-string filname;
-fstream fin;
-void openfile(),closefile();
+string filename,filename2;
+fstream fin,fin2;
+void open_toread_file(),closefile();
 
-// openfile() is a function responsible for entering a file name and opening it to work on through the program
-void openfile() {
+// open_toread_file() is a function responsible for entering a file name and opening for reading it to work on through the program ,
+// checks if it exists or not and if not it creates a new one with the given name and opens it for writing
+void open_toread_file() {
 
     // input a file name and open that file
     cout << "please enter the file name :- ";
-    getline(cin, filname);
-    fin.open(filname);
+    getline(cin, filename);
+    fin.open(filename);
     if (fin) {
-        cout << "This File Already exists\n";
+        cout << "\nThis File Already exists\n\n";
     }
 
     // check if the file is or existed not and if not asks to creat a new one or not
     while (!fin) {
         int choice;
-        cout << "Could not the open file --> " + filname << endl;
+        cout << "Could not the open file --> " + filename << endl;
         cout << "if you want to creat a new file please enter 1 if not enter 0 :- ";
         cin >> choice;
 
@@ -47,7 +51,8 @@ void openfile() {
         if (choice == 1) {
 
             // creating a new file here
-            ofstream fin (filname);
+            ofstream fin (filename,ios::out|ios::app);
+
             cout << "This is a new file. I created it for you\n";
             break;
         }
@@ -64,13 +69,16 @@ void closefile(){
 
 
 
+
+
+
+
 int main() {
 
+    open_toread_file();
 
-    openfile();
-
-    // here you can write any lines of to make ane changes to the file ex:
-    // print the file content
+//     here you can write any lines of to make ane changes to the file ex:
+//     print the file content
     string fileContent;
     while (fin >> fileContent){
         cout << fileContent;
