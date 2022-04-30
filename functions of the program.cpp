@@ -9,6 +9,29 @@
 
 
 
+// merge_files() is responsible for merging another file content after taking its name as an input from the user in the current file
+//(function no. 6)
+void merge_files(){
+
+    string fileContent;
+    // input a file name and open that file
+    cout << "please enter the other file name :- ";
+    cin.clear();
+    getline(cin, filename);
+    fin2.open(filename,ios::in);
+
+    // check if the filename is valid
+    if (!fin2) {
+        cout << "Invalid File Name";
+    }
+
+    // to append what is in the file which we want to merge in the file we want to merge to
+    while(getline(fin2, fileContent)) {
+        fin <<" " + fileContent ;
+    }
+}
+
+
 // words_number() is responsible for counting the words in the opened file (function no. 7)
 void words_number(){
     string fileContent;

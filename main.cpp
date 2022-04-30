@@ -1,6 +1,6 @@
 // FCAI – Programming 1 – 2022 - Assignment 4
 // Program Name: Text Editor Program
-// Last Modification Date: 26/4/2022
+// Last Modification Date: 30/4/2022
 // Author1 and ID and Group: Mohamed Hesham Mohamed / 20210543 / group A
 // Author2 and ID and Group: Mostafa Aly Hashem / 20210394 / group A
 // Author3 and ID and Group: Mostafa Bahy / 20210401 / group A
@@ -15,17 +15,22 @@
 using namespace std;
 string filename,filename2;
 fstream fin,fin2;
-void open_toread_file(),closefile();
+void openfile(),closefile();
 
-// open_toread_file() is a function responsible for entering a file name and opening for reading it to work on through the program ,
+// openfile() is a function responsible for entering a file name and opening for reading or appending to it to work on through the program ,
 // checks if it exists or not and if not it creates a new one with the given name and opens it for writing
-void open_toread_file() {
+void openfile() {
 
     // input a file name and open that file
     cout << "please enter the file name :- ";
     getline(cin, filename);
-    fin.open(filename);
+    fin.open(filename,ios::in);
     if (fin) {
+
+        // to allow appending in the file if the file was already exists
+        fin.close();
+        fin.open(filename,ios::in | ios::app);
+
         cout << "\nThis File Already exists\n\n";
     }
 
@@ -60,22 +65,23 @@ void open_toread_file() {
             break;
     }
 
+
 }
 
-// closefile() is a function responsible for closing the file after using it
+// closefile() is a function responsible for closing the file after applying changes to it
 void closefile(){
     fin.close();
 }
-
-
-
-
+// closefile() is a function responsible for closing the other (fin2) file after using it
+// if it was  opened as in the merge_files function which needed to open another file to merge it
+void closefile2(){
+    fin2.close();
+}
 
 
 
 int main() {
-
-    open_toread_file();
+    openfile();
 
 //     here you can write any lines of to make ane changes to the file ex:
 //     print the file content
@@ -85,6 +91,5 @@ int main() {
     }
 
     closefile();
-
     return 0;
      }
