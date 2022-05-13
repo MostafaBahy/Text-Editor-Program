@@ -101,3 +101,107 @@ void search_for_word() {
         cout<<"The word was not found in the file :(\n";
     }
 }
+
+void count_word(){
+    string fileContent,a_word;
+    int check_test = 0;
+
+    cout << "please enter the word you want to search for in the file:-  ";
+    cin >> a_word;
+
+    // convert the given word to lower case
+    for_each(a_word.begin(), a_word.end(), [](char & c){c = ::tolower(c);});
+
+    while (fin >> fileContent){
+
+        // convert the file words to lower case
+        for_each(fileContent.begin(), fileContent.end(), [](char & c){c = ::tolower(c);});
+
+        // to check if the word in the file and if so it increments the test
+        if (a_word == fileContent ){
+            check_test +=1;
+        }
+    }
+
+    cout << "the number of times the word "<< a_word<< " appeard is "<< check_test << " times";
+}
+void upper_case(){
+    
+    string file_content = "";
+    string line;
+    while(getline(fin,line)){
+        for_each(line.begin(), line.end(), [](char & c){c = ::toupper(c);});
+        line += "\n";
+        file_content += line;
+    }
+
+
+    ofstream fin2(filename,ios::trunc);
+
+    fin2 << file_content;
+
+    closefile2();
+
+
+    
+  
+}
+
+
+
+void lower_case(){
+    
+    string file_content = "";
+    string line;
+    while(getline(fin,line)){
+        for_each(line.begin(), line.end(), [](char & c){c = ::tolower(c);});
+        line += "\n";
+        file_content += line;
+    }
+
+
+    ofstream fin2(filename,ios::trunc);
+
+    fin2 << file_content;
+
+    closefile2();
+    
+  
+}
+
+
+void first_caps(){
+    string fileContent;
+    string line;
+
+    while(getline(fin,line)){
+
+        int count = 0;
+
+        for(int i = 0; i < line.size();i ++){
+            if(line[i] == ' '){
+                count = 0;
+            }else{
+                count +=1;
+            }
+            
+            if(count == 1){
+                char alpha = line[i];
+                if (isalpha(alpha)){
+                    alpha = toupper(alpha);
+                    line[i] = alpha;
+                }
+            }
+        }
+        line += "\n";
+        fileContent += line;
+    }
+    ofstream fin2(filename,ios::trunc);
+
+    fin2 << fileContent;
+
+    closefile2();
+
+     
+
+}
